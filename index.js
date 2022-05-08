@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
 
+const router = require("./routers/router");
+
 const app = express();
 dotenv.config({path: "./config.env"});
 
@@ -8,9 +10,7 @@ dotenv.config({path: "./config.env"});
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use("/", function(req, res) {
-  res.send("Hello MDonnyEN");
-});
+app.use("/", router);
 
 app.listen(process.env.PORT || 3004, function() {
   console.log("server is listening");
