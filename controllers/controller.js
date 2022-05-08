@@ -1,3 +1,5 @@
+const Model = require("../models/model");
+
 module.exports = {
   createUser: function(req, res) {
     res.send("create a user");
