@@ -10,8 +10,13 @@ module.exports = {
       res.status(500).json({message: error.message});
     }
   },
-  getAllUser: function(req, res) {
-    res.send("get all users");
+  getAllUser: async function(req, res) {
+    try {
+      const users = await Model.find();
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({message: error.message});
+    }
   },
   getUser: function(req, res) {
     res.send("get a user");
