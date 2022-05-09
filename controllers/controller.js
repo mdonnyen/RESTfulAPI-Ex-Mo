@@ -38,7 +38,16 @@ module.exports = {
       res.status(500).json({message: error.message});
     }
   },
-  deleteUser: function(req, res) {
-    res.send("delete a user");
+  deleteUser: async function(req, res) {
+    const idCheck = await Model.findById(req.params.id);
+    if(!idCheck) {
+      return res.status(404).json("user not found");
+    }
+    try {
+      const deletedUser = await Model.deleteOne({_id: req.params.id});
+      res.status(200).json(deletedUser);
+    } catch (error) {
+      res.status(500).json({message: error.message});
+    }
   }
 }
