@@ -26,8 +26,17 @@ module.exports = {
       res.status(500).json({message: error.message});
     }
   },
-  updateUser: function(req, res) {
-    res.send("update a user");
+  updateUser: async function(req, res) {
+    const idCheck = await Model.findById(req.params.id);
+    if(!idCheck) {
+      return res.status(404).json("user not found");
+    }
+    try {
+      const updatedUser = await Model.updateOne({_id: req.params.id}, {$set: req.body});
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      res.status(500).json({message: error.message});
+    }
   },
   deleteUser: function(req, res) {
     res.send("delete a user");
